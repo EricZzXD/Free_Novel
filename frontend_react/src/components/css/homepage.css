@@ -1,0 +1,19 @@
+/* The font text of the title*/
+@import
+    url(http://fonts.googleapis.com/css?family=Pacifico);
+
+@import
+    url(http://fonts.googleapis.com/css?family=Merienda+One);
+
+
+
+/**************************
+    Homepage Header
+***************************/
+.homepage_header_h1{
+    font: 400 3em/1.5 'Pacifico', Helvetica, sans-serif;
+    color: White;
+    text-shadow: 0.3em 0.3em 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05);
+    position: relative;
+    text-align: center;
+}
