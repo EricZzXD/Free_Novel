@@ -4,7 +4,7 @@ import axios from 'axios'
 
 class NovelChapterParagraph extends React.Component{
     state={
-        paragraph:'',
+        paragraph:[],
     }
 
     componentDidMount() {
@@ -12,14 +12,28 @@ class NovelChapterParagraph extends React.Component{
         let Temp_Book_data_split = Temp_Book_data.split('_')
         axios.post(global.config.url + '/BookParagraph',{Book_ID: Temp_Book_data_split[0], Book_Chapter:Temp_Book_data_split[1], Book_paragraph:Temp_Book_data_split[2]}).then(res=>{
             console.log(res.data)
-            this.setState({paragraph:res.data.paragraph})
+            let tempParaArray = []
+            for(let i=0;i<res.data.data.length;i++){
+                if(res.data.data[i]!== ''){
+                    tempParaArray.push(res.data.data[i])
+                }
+            }
+            tempParaArray[0] = tempParaArray[0].slice(21)
+
+            this.setState({paragraph:tempParaArray})
         })
     }
 
     render() {
         return(
             <div>
-                <div>{this.state.paragraph}</div>
+                {
+                    this.state.paragraph.map((data,i)=>{
+                        return(
+                            <p key={i}>{data}</p>
+                        )
+                    })
+                }
             </div>
         )
     }

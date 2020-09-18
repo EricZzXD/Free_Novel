@@ -104,6 +104,10 @@ def get_book_chapter():
 
 @app.route('/BookParagraph', methods=['POST'])
 def get_book_paragraph():
+    # Used for loop and make response
+    data = {}  # data
+    data_array = []
+
     # Receive Data from front end
     request_data = request.get_json()  # Request Json Format data from react
     received_book_id = request_data['Book_ID']  # Read Book_ID from json
@@ -115,11 +119,17 @@ def get_book_paragraph():
     page_request = request_page(page_url)
     soup = BeautifulSoup(page_request.text, 'html.parser')  # BeautifulSoup Html Parser
 
-    soup.find('div', 'panel-body content-body content-ext')
-    paragraph = soup.find('div', 'panel-body content-body content-ext').get_text()
-    response = make_response(jsonify(paragraph=paragraph))
+    # print(soup.find('div', 'panel-body content-body content-ext'))
 
+    # paragraph = soup.find('div', 'panel-body content-body content-ext').get_text()
+    # response = make_response(jsonify(paragraph=paragraph))
+    data_array = soup.find('div', 'panel-body content-body content-ext').get_text().split('\n')
+    data['data'] = data_array  # covert the array back to dict format
+    json_data = json.dumps(data, ensure_ascii=False)
+    response = make_response(json_data)
     return response
+
+    return "response"
 
 
 if __name__ == '__main__':
