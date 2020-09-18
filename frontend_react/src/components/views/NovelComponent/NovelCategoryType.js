@@ -15,8 +15,7 @@ class NovelCategoryType extends React.Component{
     }
 
     componentDidMount() {
-        console.log(this.props.location.pathname.slice(-6))  // => Example: Cate_1
-        console.log(global.config.url + '/CategoryType')
+        // Retrieve Data from the backend
         axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:this.state.Cate_Page}).then(res=>{
             this.state.Cate_Book_Info = res.data.data
             this.setState({Cate_Book_Info:this.state.Cate_Book_Info})
@@ -39,27 +38,35 @@ class NovelCategoryType extends React.Component{
                     }
                 </ul>
                 <br/>
-                <button name='Previous_page' onClick={this.Cate_Change_Page}>上一页</button>
+                <button name='Previous_page' className={this.state.Cate_Page} onClick={this.Cate_Change_Page}
+                    disabled={this.state.Cate_Page==1?true:false}>上一页</button>
                 <br/>
-                <button name='Next_page' onClick={this.Cate_Change_Page}>下一页</button>
+                <button name='Next_page' className={this.state.Cate_Page} onClick={this.Cate_Change_Page}>下一页</button>
             </div>
         )
     }
 
     // Change page refresh State info
     Cate_Change_Page=(e)=>{
-        let Cate_page = this.state.Cate_Page
+        // Detect the name whether next page or previous page
         if(e.target.name === 'Next_page') {
-            this.setState({Cate_Page: Cate_page + 1})
-            axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:this.state.Cate_Page}).then(res=>{
+            // Create Temp variable to keep trace of the Page number
+            let newPage = Number(e.target.className) + 1
+
+            // Base on the Page number to retrieve novel and update page if success
+            axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:newPage}).then(res=>{
                 this.state.Cate_Book_Info = res.data.data
-                this.setState({Cate_Book_Info:this.state.Cate_Book_Info})
+                this.setState({Cate_Book_Info:this.state.Cate_Book_Info, CatePage:newPage})
             })
-        }else{
-            this.setState({Cate_Page: Cate_page - 1})
-            axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:this.state.Cate_Page}).then(res=>{
+        }
+        if(e.target.name === 'Previous_page'){
+            // Create Temp variable to keep trace of the Page number
+            let newPage = Number(e.target.className) - 1
+
+            // Base on the Page number to retrieve novel and update page if success
+            axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:newPage}).then(res=>{
                 this.state.Cate_Book_Info = res.data.data
-                this.setState({Cate_Book_Info:this.state.Cate_Book_Info})
+                this.setState({Cate_Book_Info:this.state.Cate_Book_Info, CatePage:newPage})
             })
         }
         console.log(this.state)

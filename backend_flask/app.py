@@ -18,7 +18,7 @@ def request_page(url):
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Please dont hack my server \n My server have nothing but try to show my project \n :)'
 
 
 @app.route('/getNovelCategory')
@@ -43,6 +43,7 @@ def get_category():
     return response
 
 
+# This route used to get the novel base on the type
 @app.route('/CategoryType', methods={'POST'})
 def get_category_info():
     # Used for loop and make response
@@ -119,17 +120,12 @@ def get_book_paragraph():
     page_request = request_page(page_url)
     soup = BeautifulSoup(page_request.text, 'html.parser')  # BeautifulSoup Html Parser
 
-    # print(soup.find('div', 'panel-body content-body content-ext'))
-
-    # paragraph = soup.find('div', 'panel-body content-body content-ext').get_text()
-    # response = make_response(jsonify(paragraph=paragraph))
+    # Find the text and split the string when have '\n'  and return array
     data_array = soup.find('div', 'panel-body content-body content-ext').get_text().split('\n')
     data['data'] = data_array  # covert the array back to dict format
     json_data = json.dumps(data, ensure_ascii=False)
     response = make_response(json_data)
     return response
-
-    return "response"
 
 
 if __name__ == '__main__':
