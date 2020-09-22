@@ -9,8 +9,8 @@ class NovelHome extends React.Component{
     }
 
     componentDidMount() {
-        console.log(global.config.url + '/getNovelCategory')
-        axios.get(global.config.url + '/getNovelCategory').then(res=>{
+        console.log(global.config.url + 'getNovelCategory')
+        axios.get(global.config.url + 'getNovelCategory').then(res=>{
             this.state.Novel_Category = res.data.data
             this.setState({Novel_Category:this.state.Novel_Category})
             console.log(res.data)

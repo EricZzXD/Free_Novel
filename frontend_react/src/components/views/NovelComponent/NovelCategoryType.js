@@ -16,7 +16,7 @@ class NovelCategoryType extends React.Component{
 
     componentDidMount() {
         // Retrieve Data from the backend
-        axios.post(global.config.url + '/CategoryType',{CateType:this.state.Cate_Type, CatePage:this.state.Cate_Page}).then(res=>{
+        axios.post(global.config.url + 'CategoryType',{CateType:this.state.Cate_Type, CatePage:this.state.Cate_Page}).then(res=>{
             this.state.Cate_Book_Info = res.data.data
             this.setState({Cate_Book_Info:this.state.Cate_Book_Info})
         })

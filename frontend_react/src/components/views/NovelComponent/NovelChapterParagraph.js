@@ -10,7 +10,7 @@ class NovelChapterParagraph extends React.Component{
     componentDidMount() {
         let Temp_Book_data = this.props.location.pathname.slice(21)
         let Temp_Book_data_split = Temp_Book_data.split('_')
-        axios.post(global.config.url + '/BookParagraph',{Book_ID: Temp_Book_data_split[0], Book_Chapter:Temp_Book_data_split[1], Book_paragraph:Temp_Book_data_split[2]}).then(res=>{
+        axios.post(global.config.url + 'BookParagraph',{Book_ID: Temp_Book_data_split[0], Book_Chapter:Temp_Book_data_split[1], Book_paragraph:Temp_Book_data_split[2]}).then(res=>{
             let tempParaArray = []  // Create temporary array
             for(let i=0;i<res.data.data.length;i++){
                 if(res.data.data[i]!== ''){  // remove the Empty array
