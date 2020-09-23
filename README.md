@@ -3,6 +3,15 @@
 
 ### Backend 
 #### CentOS 7 Deploy 
+
+#### Procedures To Setup Flask in server (Centos 7)
+- install Screen that used to constant run backend flask ------> `sudo yum install screen`
+- git clone the backend repository 
+- (Require to install Python 3.7 and related dependancies -> flask, flask_cors, beautifulsoup4)
+- use screen to run backend by `screen` to use the screen terminal 
+- `flask run --host=0.0.0.0 --port=5000` 
+
+
 ##### **Install Python 3.7**
 
 1. Download Dependancies 
